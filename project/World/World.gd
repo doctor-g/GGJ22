@@ -4,7 +4,6 @@ const SPARK := preload("res://Spark/Spark.tscn")
 const NUM_SPARKS := 3
 const RIGHT_SPARK_UNIT_OFFSET := 1/(NUM_SPARKS*2.0)
 const ENEMY := preload("res://Enemy/Enemy.tscn")
-const END_GAME_DELAY := 3.0
 
 onready var _enemies := $Enemies
 onready var _player1 := $LeftZone/Player1
@@ -47,9 +46,7 @@ func _on_Player2_death():
 
 func _end_game():
 	Globals.playing = false
-	yield(get_tree().create_timer(END_GAME_DELAY), "timeout")
-	# warning-ignore:return_value_discarded
-	get_tree().change_scene("res://World/World.tscn")
+	$GameEndTimer.start()
 
 
 func _on_Spark_hit(player_index:int, spark:Node2D)->void:
@@ -63,3 +60,8 @@ func _spawn_enemy(spark:Node2D, left:bool)->void:
 	var viewport_width = get_viewport_rect().size.x
 	enemy.position.x += (viewport_width/2 if left else -viewport_width/2)
 	enemy.target = _player2 if left else _player1
+
+
+func _on_GameEndTimer_timeout()->void:
+	# warning-ignore:return_value_discarded
+	get_tree().change_scene("res://World/World.tscn")

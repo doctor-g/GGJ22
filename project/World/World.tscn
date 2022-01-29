@@ -78,10 +78,13 @@ script = ExtResource( 4 )
 [node name="Enemies" type="Node" parent="."]
 
 [node name="PauseMenu" parent="." instance=ExtResource( 5 )]
-visible = false
+
+[node name="GameEndTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="death" from="LeftZone/Player1" to="." method="_on_Player1_death"]
 [connection signal="death" from="RightZone/Player2" to="." method="_on_Player2_death"]
+[connection signal="timeout" from="GameEndTimer" to="." method="_on_GameEndTimer_timeout"]
 
 [editable path="LeftZone"]
 [editable path="RightZone"]
