@@ -1,8 +1,12 @@
 extends KinematicBody2D
 
+const VERTICES := 32
+const RADIUS := 20
+
 export(int,1) var player_index := 0
 
 var speed := 150
+var polygon setget ,_get_polygon
 
 var _move_left : String
 var _move_right : String
@@ -10,8 +14,15 @@ var _move_up : String
 var _move_down : String
 var _color : Color
 
+onready var _collision_polygon := $CollisionPolygon2D
 
 func _ready():
+	var points : PoolVector2Array = []
+	points.resize(VERTICES)
+	for i in VERTICES+1:
+		points.append(Vector2(0,RADIUS).rotated(float(i)/VERTICES*TAU))
+	_collision_polygon.set_polygon(points)
+	
 	var suffix := "_p1" if player_index==0 else "_p2"
 	_move_left = "move_left" + suffix
 	_move_right = "move_right" + suffix
@@ -19,7 +30,7 @@ func _ready():
 	_move_down = "move_down" + suffix
 	
 	_color = Color.white if player_index==0 else Color.black
-
+	
 
 func _physics_process(delta):
 	var direction := Vector2(
@@ -32,4 +43,9 @@ func _physics_process(delta):
 
 
 func _draw():
-	draw_circle(Vector2.ZERO, $CollisionShape2D.shape.radius, _color)
+	draw_colored_polygon(_collision_polygon.polygon, _color)
+
+
+# A utility to allow the world to access a copy of this node's outline
+func _get_polygon()->PoolVector2Array:
+	return _collision_polygon.polygon
