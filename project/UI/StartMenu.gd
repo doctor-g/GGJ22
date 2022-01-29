@@ -5,6 +5,7 @@ onready var _shadery_things := [$Title, $Background, $Label]
 
 func _ready():
 	_play_button.grab_focus()
+	Jukebox.play_title()
 
 
 func _process(_delta):
@@ -15,5 +16,6 @@ func _process(_delta):
 
 
 func _on_PlayButton_pressed():
+	Jukebox.play_theme()
 	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://World/World.tscn")
