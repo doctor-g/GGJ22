@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://World/World.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/ZoneBounds.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/SparkPath.gd" type="Script" id=4]
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -41,6 +42,13 @@ position = Vector2( 11, 7 )
 collision_layer = 2
 collision_mask = 0
 player_index = 1
+
+[node name="LeftSparkPath" type="Path2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="RightSparkPath" type="Path2D" parent="."]
+position = Vector2( 512, 0 )
+script = ExtResource( 4 )
 
 [connection signal="death" from="LeftZone/Player1" to="." method="_on_Player1_death"]
 [connection signal="death" from="RightZone/Player2" to="." method="_on_Player2_death"]
