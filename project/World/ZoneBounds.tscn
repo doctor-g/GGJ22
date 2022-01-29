@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 256, 10 )
+extents = Vector2( 256, 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 300 )
+extents = Vector2( 1, 300 )
 
 [node name="ZoneBounds" type="Node2D"]
 
