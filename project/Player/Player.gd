@@ -82,6 +82,11 @@ func _physics_process(delta):
 
 func damage()->void:
 	emit_signal("death")
+	var explosion: CPUParticles2D = preload("res://Player/PlayerExplosion.tscn").instance()
+	explosion.position = position
+	get_parent().add_child(explosion)
+	explosion.emitting = true
+	hide()
 
 
 func show_halo()->void:

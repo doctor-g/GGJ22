@@ -32,17 +32,14 @@ func _input(event):
 
 
 func _on_Player1_death():
-	print("PLAYER 2 WINS")
 	_player2.show_halo()
 	_end_game()
 
 
 func _on_Player2_death():
-	print("PLAYER 1 WINS")
 	_player1.show_halo()
-	Globals.playing = false
 	_end_game()
-	
+
 
 func _end_game():
 	Globals.playing = false

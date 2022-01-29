@@ -35,3 +35,8 @@ func _process(delta):
 func _on_Area2D_body_entered(body):
 	if body is Projectile:
 		emit_signal("hit", body.player_index)
+		
+		var explosion:CPUParticles2D = preload("res://Spark/SparkExplosion.tscn").instance()
+		explosion.position = position
+		get_parent().add_child(explosion)
+		explosion.emitting = true

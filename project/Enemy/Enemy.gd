@@ -32,6 +32,10 @@ func _draw()->void:
 
 
 func damage()->void:
+	var explosion: CPUParticles2D = preload("res://Enemy/EnemyExplosion.tscn").instance()
+	explosion.global_position = get_global_transform().origin
+	get_parent().add_child(explosion)
+	explosion.emitting = true
 	queue_free()
 
 
