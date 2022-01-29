@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-signal death
+signal hit(player_index)
 
 const UNIT_PER_SECOND := 0.2
 
@@ -13,12 +13,6 @@ func _process(delta):
 	unit_offset += UNIT_PER_SECOND * delta
 
 
-func damage():
-	emit_signal("death")
-	queue_free()
-
-
-# If a body enters this, then by the masking policy, it should have been a 
-# projectile
-func _on_Area2D_body_entered(_body):
-	damage()
+func _on_Area2D_body_entered(body):
+	if body is Projectile:
+		emit_signal("hit", body.player_index)

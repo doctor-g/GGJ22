@@ -1,3 +1,4 @@
+class_name Projectile
 extends KinematicBody2D
 
 const SPEED := 200.0
@@ -15,8 +16,7 @@ func _physics_process(delta):
 	if collision!=null:
 		if collision.collider.has_method("damage"):
 			collision.collider.damage()
-		else:
-			queue_free()
+		queue_free()
 
 
 func _draw():

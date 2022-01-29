@@ -16,12 +16,12 @@ func _ready():
 		var left = SPARK.instance()
 		$LeftSparkPath.add_child(left)
 		left.unit_offset = percent_along
-		left.connect("death", self, "_on_Spark_death", [left, true], CONNECT_ONESHOT)
+		left.connect("hit", self, "_on_Spark_hit", [left])
 		
 		var right = SPARK.instance()
 		$RightSparkPath.add_child(right)
 		right.unit_offset = percent_along + RIGHT_SPARK_UNIT_OFFSET
-		right.connect("death", self, "_on_Spark_death", [right, false], CONNECT_ONESHOT)
+		right.connect("hit", self, "_on_Spark_hit", [right])
 
 
 func _on_Player1_death():
@@ -32,8 +32,8 @@ func _on_Player2_death():
 	print("PLAYER 1 WINS")
 
 
-func _on_Spark_death(spark:Node2D, left:bool)->void:
-	call_deferred("_spawn_enemy", spark,left)
+func _on_Spark_hit(player_index:int, spark:Node2D)->void:
+	call_deferred("_spawn_enemy", spark, player_index==0)
 
 
 func _spawn_enemy(spark:Node2D, left:bool)->void:
