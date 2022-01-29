@@ -85,7 +85,7 @@ func damage()->void:
 	var explosion: CPUParticles2D = preload("res://Player/PlayerExplosion.tscn").instance()
 	explosion.position = position
 	get_parent().add_child(explosion)
-	explosion.emitting = true
+	explosion.one_shot = true
 	hide()
 
 

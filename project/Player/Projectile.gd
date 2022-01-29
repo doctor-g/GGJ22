@@ -19,11 +19,12 @@ func _physics_process(delta):
 		if collision.collider.has_method("damage"):
 			collision.collider.damage()
 			
-		# Otherwise, we hit a wall
-		var explosion : CPUParticles2D = preload("res://Player/ProjectileExplosion.tscn").instance()
-		get_parent().add_child(explosion)
-		explosion.one_shot = true
-		explosion.global_position = global_position
+		# Check if we hit a wall, in which case, explode
+		elif collision.collider is StaticBody2D:
+			var explosion : CPUParticles2D = preload("res://Player/ProjectileExplosion.tscn").instance()
+			get_parent().add_child(explosion)
+			explosion.one_shot = true
+			explosion.global_position = global_position
 		
 		queue_free()
 

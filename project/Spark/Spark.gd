@@ -39,4 +39,6 @@ func _on_Area2D_body_entered(body):
 		var explosion:CPUParticles2D = preload("res://Spark/SparkExplosion.tscn").instance()
 		explosion.position = position
 		get_parent().add_child(explosion)
-		explosion.emitting = true
+		explosion.one_shot = true
+		
+		body.queue_free()
