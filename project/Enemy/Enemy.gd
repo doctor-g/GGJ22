@@ -13,6 +13,9 @@ var target: KinematicBody2D setget _set_target
 var _direction := Vector2.RIGHT
 
 func _physics_process(delta: float)->void:
+	if not Globals.playing:
+		return
+	
 	var angle_to_target = get_angle_to(target.get_global_transform().origin)
 	rotation += angle_to_target
 	

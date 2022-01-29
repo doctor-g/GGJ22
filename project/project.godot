@@ -24,6 +24,10 @@ config/name="GGJ22"
 run/main_scene="res://World/World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Globals="*res://Shared/Globals.gd"
+
 [input]
 
 move_up_p1={

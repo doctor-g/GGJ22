@@ -56,6 +56,9 @@ func _ready():
 	_basic_shape.polygon = _collision_polygon.polygon
 
 func _physics_process(delta):
+	if not Globals.playing:
+		return
+	
 	var direction := Vector2(
 		Input.get_axis(_move_left, _move_right),
 		Input.get_axis(_move_up, _move_down)
