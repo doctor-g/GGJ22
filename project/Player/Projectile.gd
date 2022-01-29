@@ -25,5 +25,6 @@ func _draw():
 
 func _set_player_index(index:int)->void:
 	player_index = index
-	collision_layer = 4 if index==0 else 8
-	collision_mask = 2 if index==0 else 1
+	collision_layer = 4 if index == 0 else 8
+	collision_mask = 2 if index == 0 else 1
+	set_collision_mask_bit(4, true)

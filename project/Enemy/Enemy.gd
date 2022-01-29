@@ -23,13 +23,18 @@ func _physics_process(delta: float)->void:
 	
 	var collision := move_and_collide((_direction * speed * delta).rotated(rotation))
 	
-#	if collision != null:
-#		if collision.collider == target:
-#			target.damage()
+	if collision != null:
+		if collision.collider == target:
+			target.damage()
+			queue_free()
 
 
 func _draw()->void:
-	draw_circle($CollisionShape2D.position, $CollisionShape2D.shape.radius, Color.red)
+	draw_circle(Vector2.ZERO, $CollisionShape2D.shape.radius, Color.red)
+
+
+func damage()->void:
+	queue_free()
 
 
 func _set_target(new_target: KinematicBody2D)->void:
