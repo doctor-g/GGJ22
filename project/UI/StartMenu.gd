@@ -1,6 +1,6 @@
 extends Control
 
-onready var _play_button := $CenterContainer/PlayButton
+onready var _play_button := $PlayButton
 
 
 func _ready():
