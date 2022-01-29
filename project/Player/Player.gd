@@ -2,16 +2,24 @@ extends KinematicBody2D
 
 const VERTICES := 32
 const RADIUS := 20
+const DISTANCE_TO_RETICLE := 30
+const RETICLE_RADIUS := 5
 
 export(int,1) var player_index := 0
 
 var speed := 150
 var polygon setget ,_get_polygon
 
+var _aim_angle : float
+
 var _move_left : String
 var _move_right : String
 var _move_up : String
 var _move_down : String
+var _aim_left: String
+var _aim_right : String
+var _aim_up : String
+var _aim_down : String
 var _color : Color
 
 onready var _collision_polygon := $CollisionPolygon2D
@@ -28,6 +36,10 @@ func _ready():
 	_move_right = "move_right" + suffix
 	_move_up = "move_up" + suffix
 	_move_down = "move_down" + suffix
+	_aim_left = "aim_left" + suffix
+	_aim_right = "aim_right" + suffix
+	_aim_up = "aim_up" + suffix
+	_aim_down = "aim_down" + suffix
 	
 	_color = Color.white if player_index==0 else Color.black
 	
@@ -40,10 +52,24 @@ func _physics_process(delta):
 	
 	# warning-ignore:return_value_discarded
 	move_and_collide(direction*delta*speed)
+	
+	if _is_any_aim_pressed():
+		_aim_angle = Vector2(
+			Input.get_axis(_aim_left, _aim_right), 
+			Input.get_axis(_aim_up, _aim_down)
+		).angle()
+		update()
 
+
+func _is_any_aim_pressed()->bool:
+	return Input.is_action_pressed(_aim_up) \
+		or Input.is_action_pressed(_aim_down) \
+		or Input.is_action_pressed(_aim_left) \
+		or Input.is_action_pressed(_aim_right)
 
 func _draw():
 	draw_colored_polygon(_collision_polygon.polygon, _color)
+	draw_circle(Vector2(DISTANCE_TO_RETICLE, 0).rotated(_aim_angle), RETICLE_RADIUS, _color)
 
 
 # A utility to allow the world to access a copy of this node's outline
