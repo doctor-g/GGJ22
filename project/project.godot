@@ -127,6 +127,13 @@ fire_p2={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player1"
+2d_physics/layer_2="player2"
+2d_physics/layer_3="projectile1"
+2d_physics/layer_4="projectile2"
+
 [physics]
 
 common/enable_pause_aware_picking=true

@@ -20,6 +20,7 @@ var _aim_left: String
 var _aim_right : String
 var _aim_up : String
 var _aim_down : String
+var _fire : String
 var _color : Color
 
 onready var _collision_polygon := $CollisionPolygon2D
@@ -40,6 +41,7 @@ func _ready():
 	_aim_right = "aim_right" + suffix
 	_aim_up = "aim_up" + suffix
 	_aim_down = "aim_down" + suffix
+	_fire = "fire" + suffix
 	
 	_color = Color.white if player_index==0 else Color.black
 	
@@ -59,6 +61,9 @@ func _physics_process(delta):
 			Input.get_axis(_aim_up, _aim_down)
 		).angle()
 		update()
+		
+	if Input.is_action_just_pressed(_fire):
+		_shoot()
 
 
 func _is_any_aim_pressed()->bool:
@@ -66,6 +71,15 @@ func _is_any_aim_pressed()->bool:
 		or Input.is_action_pressed(_aim_down) \
 		or Input.is_action_pressed(_aim_left) \
 		or Input.is_action_pressed(_aim_right)
+
+
+func _shoot()->void:
+	var projectile : Node2D = preload("res://Player/Projectile.tscn").instance()
+	projectile.player_index = player_index	
+	get_parent().add_child(projectile)
+	projectile.position = get_global_transform().origin + Vector2(DISTANCE_TO_RETICLE,0).rotated(_aim_angle)
+	projectile.direction = Vector2(cos(_aim_angle), sin(_aim_angle))
+
 
 func _draw():
 	draw_colored_polygon(_collision_polygon.polygon, _color)
