@@ -1,5 +1,7 @@
 extends PathFollow2D
 
+signal death
+
 const UNIT_PER_SECOND := 0.2
 
 
@@ -12,6 +14,7 @@ func _process(delta):
 
 
 func damage():
+	emit_signal("death")
 	queue_free()
 
 

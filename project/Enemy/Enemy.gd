@@ -8,14 +8,9 @@ extends KinematicBody2D
 # exported variables
 export var speed := 100.0
 
-# public variables
 var target: KinematicBody2D setget _set_target
 
-# private variables
 var _direction := Vector2.RIGHT
-
-# onready variables
-
 
 func _physics_process(delta: float)->void:
 	var angle_to_target = get_angle_to(target.get_global_transform().origin)
