@@ -54,8 +54,9 @@ func _physics_process(delta):
 		Input.get_axis(_move_up, _move_down)
 	)
 	
-	# warning-ignore:return_value_discarded
-	move_and_collide(direction*delta*speed)
+	var collision := move_and_collide(direction*delta*speed)
+	if collision != null:
+		damage()
 	
 	if _is_any_aim_pressed():
 		_aim_angle = Vector2(
@@ -81,9 +82,9 @@ func _is_any_aim_pressed()->bool:
 
 func _shoot()->void:
 	var projectile : Node2D = preload("res://Player/Projectile.tscn").instance()
-	projectile.player_index = player_index	
+	projectile.player_index = player_index
 	get_parent().add_child(projectile)
-	projectile.position = get_global_transform().origin + Vector2(DISTANCE_TO_RETICLE,0).rotated(_aim_angle)
+	projectile.global_position = get_global_transform().origin + Vector2(DISTANCE_TO_RETICLE,0).rotated(_aim_angle)
 	projectile.direction = Vector2(cos(_aim_angle), sin(_aim_angle))
 
 

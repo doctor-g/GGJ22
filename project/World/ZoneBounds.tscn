@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 256, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 300 )
+
+[node name="ZoneBounds" type="Node2D"]
+
+[node name="Top" type="StaticBody2D" parent="."]
+position = Vector2( 0, -300 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+shape = SubResource( 1 )
+
+[node name="Bottom" type="StaticBody2D" parent="."]
+position = Vector2( 0, 300 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource( 1 )
+
+[node name="Left" type="StaticBody2D" parent="."]
+position = Vector2( -256, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+shape = SubResource( 2 )
+
+[node name="Right" type="StaticBody2D" parent="."]
+position = Vector2( 256, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+shape = SubResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -256, -300, 256, -300, 256, 300, -256, 300 )
