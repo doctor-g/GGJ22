@@ -11,8 +11,9 @@ func _ready():
 
 
 func _physics_process(delta):
-	# warning-ignore:return_value_discarded
-	move_and_collide(direction*delta*SPEED)
+	var collision := move_and_collide(direction*delta*SPEED)
+	if collision!=null:
+		collision.collider.damage()
 
 
 func _draw():

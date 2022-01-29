@@ -21,3 +21,6 @@ player_index = 1
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( -1, -6, 543, 0, 554, 601, -1, 594 )
+
+[connection signal="death" from="Players/Player1" to="." method="_on_Player1_death"]
+[connection signal="death" from="Players/Player2" to="." method="_on_Player2_death"]

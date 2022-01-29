@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal death
+
 const VERTICES := 32
 const RADIUS := 20
 const DISTANCE_TO_RETICLE := 30
@@ -64,6 +66,10 @@ func _physics_process(delta):
 		
 	if Input.is_action_just_pressed(_fire):
 		_shoot()
+
+
+func damage()->void:
+	emit_signal("death")
 
 
 func _is_any_aim_pressed()->bool:
