@@ -6,6 +6,8 @@ const SPEED := 200.0
 var direction := Vector2.ZERO
 var player_index := -1 setget _set_player_index
 
+var _color: Color
+
 
 func _ready():
 	assert(player_index!=-1)
@@ -20,8 +22,9 @@ func _physics_process(delta):
 
 
 func _draw():
-	draw_circle(Vector2.ZERO, $CollisionShape2D.shape.radius, Color.cyan)
+	draw_circle(Vector2.ZERO, $CollisionShape2D.shape.radius, _color)
 
 
 func _set_player_index(index:int)->void:
 	player_index = index
+	_color = Color.white if index == 0 else Color.black
