@@ -26,6 +26,12 @@ func _ready():
 		right.connect("hit", self, "_on_Spark_hit", [right])
 
 
+func _input(event):
+	if event.is_action_pressed("pause"):
+		get_tree().paused = true
+		$PauseMenu.show_modal(true)
+
+
 func _on_Player1_death():
 	print("PLAYER 2 WINS")
 	_player2.show_halo()
