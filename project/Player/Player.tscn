@@ -4,6 +4,7 @@
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+cooldown_time = 0.2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
