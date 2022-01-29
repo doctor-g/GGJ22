@@ -18,6 +18,13 @@ func _physics_process(delta):
 	if collision!=null:
 		if collision.collider.has_method("damage"):
 			collision.collider.damage()
+			
+		# Otherwise, we hit a wall
+		var explosion : CPUParticles2D = preload("res://Player/ProjectileExplosion.tscn").instance()
+		get_parent().add_child(explosion)
+		explosion.one_shot = true
+		explosion.global_position = global_position
+		
 		queue_free()
 
 
