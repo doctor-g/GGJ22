@@ -30,6 +30,7 @@ var _can_shoot := true
 
 onready var _collision_polygon := $CollisionPolygon2D
 onready var _cooldown_timer := $CooldownTimer
+onready var _basic_shape := $BasicShape
 
 func _ready():
 	var points : PoolVector2Array = []
@@ -49,8 +50,10 @@ func _ready():
 	_aim_down = "aim_down" + suffix
 	_fire = "fire" + suffix
 	
-	_color = Color.white if player_index==0 else Color.black
-	
+	_basic_shape.color = Color.white if player_index==0 else Color.black
+	_basic_shape.reticle_radius = RETICLE_RADIUS
+	_basic_shape.distance_to_reticle = DISTANCE_TO_RETICLE
+	_basic_shape.polygon = _collision_polygon.polygon
 
 func _physics_process(delta):
 	var direction := Vector2(
@@ -67,14 +70,19 @@ func _physics_process(delta):
 			Input.get_axis(_aim_left, _aim_right), 
 			Input.get_axis(_aim_up, _aim_down)
 		).angle()
-		update()
 		
+		_basic_shape.aim_angle = _aim_angle
+	
 	if Input.is_action_just_pressed(_fire) and _can_shoot:
 		_shoot()
 
 
 func damage()->void:
 	emit_signal("death")
+
+
+func show_halo()->void:
+	$Halo.visible = true
 
 
 func _is_any_aim_pressed()->bool:
@@ -95,11 +103,6 @@ func _shoot()->void:
 	projectile.direction = Vector2(cos(_aim_angle), sin(_aim_angle))
 
 
-func _draw():
-	draw_colored_polygon(_collision_polygon.polygon, _color)
-	draw_circle(Vector2(DISTANCE_TO_RETICLE, 0).rotated(_aim_angle), RETICLE_RADIUS, _color)
-
-
 # A utility to allow the world to access a copy of this node's outline
 func _get_polygon()->PoolVector2Array:
 	return _collision_polygon.polygon
@@ -107,3 +110,6 @@ func _get_polygon()->PoolVector2Array:
 
 func _on_CooldownTimer_timeout()->void:
 	_can_shoot = true
+
+
+

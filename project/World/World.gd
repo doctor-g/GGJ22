@@ -26,10 +26,12 @@ func _ready():
 
 func _on_Player1_death():
 	print("PLAYER 2 WINS")
+	_player2.show_halo()
 
 
 func _on_Player2_death():
 	print("PLAYER 1 WINS")
+	_player1.show_halo()
 
 
 func _on_Spark_hit(player_index:int, spark:Node2D)->void:
