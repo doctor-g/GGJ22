@@ -8,6 +8,7 @@ const DISTANCE_TO_RETICLE := 30
 const RETICLE_RADIUS := 5
 
 export(int,1) var player_index := 0
+export var cooldown_time := 0.5
 
 var speed := 150
 var polygon setget ,_get_polygon
@@ -25,7 +26,10 @@ var _aim_down : String
 var _fire : String
 var _color : Color
 
+var _can_shoot := true
+
 onready var _collision_polygon := $CollisionPolygon2D
+onready var _cooldown_timer := $CooldownTimer
 
 func _ready():
 	var points : PoolVector2Array = []
@@ -65,7 +69,7 @@ func _physics_process(delta):
 		).angle()
 		update()
 		
-	if Input.is_action_just_pressed(_fire):
+	if Input.is_action_just_pressed(_fire) and _can_shoot:
 		_shoot()
 
 
@@ -81,6 +85,9 @@ func _is_any_aim_pressed()->bool:
 
 
 func _shoot()->void:
+	_can_shoot = false
+	_cooldown_timer.start(cooldown_time)
+	
 	var projectile : Node2D = preload("res://Player/Projectile.tscn").instance()
 	projectile.player_index = player_index
 	get_parent().add_child(projectile)
@@ -96,3 +103,7 @@ func _draw():
 # A utility to allow the world to access a copy of this node's outline
 func _get_polygon()->PoolVector2Array:
 	return _collision_polygon.polygon
+
+
+func _on_CooldownTimer_timeout()->void:
+	_can_shoot = true
