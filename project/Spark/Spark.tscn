@@ -9,6 +9,8 @@ radius = 20.0
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 2 )
+shader_param/left = Vector3( 1, 1, 1 )
+shader_param/right = Vector3( 0, 0, 0 )
 shader_param/barrier_x = 512.0
 
 [node name="Spark" type="PathFollow2D"]

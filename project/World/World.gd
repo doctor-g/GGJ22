@@ -18,11 +18,13 @@ func _ready():
 		$LeftSparkPath.add_child(left)
 		left.unit_offset = percent_along
 		left.connect("hit", self, "_on_Spark_hit", [left])
+		left.clockwise = true
 		
 		var right = SPARK.instance()
 		$RightSparkPath.add_child(right)
 		right.unit_offset = percent_along + RIGHT_SPARK_UNIT_OFFSET
 		right.connect("hit", self, "_on_Spark_hit", [right])
+		right.clockwise = false
 
 
 func _input(event):

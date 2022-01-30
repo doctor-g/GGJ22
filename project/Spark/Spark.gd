@@ -4,13 +4,15 @@ signal hit(player_index)
 
 const UNIT_PER_SECOND := 0.05
 const VERTICES := 16
-const ROTATION_SPEED := 0.4
+const ROTATION_SPEED := 4
 const MAX_HALO_RADIUS := 50.0
 const MIN_HALO_RADIUS := 18.0
 const SOUND_P1 := preload("res://Spark/spark_p1.wav")
 const SOUND_P2 := preload("res://Spark/spark_p2.wav")
 
 onready var _radius: float = $Area2D/CollisionShape2D.shape.radius
+
+var clockwise: bool
 
 var _half_circle_a: PoolVector2Array
 var _half_circle_b: PoolVector2Array
@@ -37,7 +39,7 @@ func _process(delta):
 	if _is_moving:
 		unit_offset += UNIT_PER_SECOND * delta
 		
-		rotation += ROTATION_SPEED
+		rotation += ROTATION_SPEED * delta * (1.0 if clockwise else -1.0)
 	
 	else:
 		_halo_collapse_amount += delta
