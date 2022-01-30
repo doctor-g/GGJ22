@@ -40,7 +40,6 @@ shader = SubResource( 3 )
 [node name="Player" type="KinematicBody2D"]
 material = SubResource( 2 )
 script = ExtResource( 1 )
-cooldown_time = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )

@@ -12,7 +12,7 @@ const DEATH_P1 := preload("res://Player/death_p1.wav")
 const DEATH_P2 := preload("res://Player/death_p2.wav")
 
 export(int,1) var player_index := 0
-export var cooldown_time := 0.5
+export var cooldown_time := 0.3
 
 var speed := 150
 
@@ -121,7 +121,7 @@ func _process_aim_input()->void:
 
 
 func _process_shoot_input():
-	if Input.is_action_just_pressed(_fire) and _can_shoot:
+	if Input.is_action_pressed(_fire) and _can_shoot:
 		_shoot()
 
 
