@@ -22,9 +22,13 @@ _global_script_class_icons={
 
 config/name="GGJ22"
 run/main_scene="res://UI/StartMenu.tscn"
+<<<<<<< HEAD
 boot_splash/image="res://splash.png"
+config/icon="res://icon.png"
+=======
 config/icon="res://custom_icon.png"
 config/windows_native_icon="res://custom_icon.ico"
+>>>>>>> aba7b3f (Add custom icon)
 
 [autoload]
 
