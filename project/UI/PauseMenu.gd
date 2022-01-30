@@ -1,9 +1,11 @@
 extends PopupDialog
 
 onready var _continue_button := $CenterContainer/VBoxContainer/ContinueButton
+onready var _game_options := $CenterContainer/VBoxContainer/GameOptionsControl
 
 func show():
 	.show()
+	_game_options.update_toggle_state()
 	_continue_button.grab_focus()
 
 
