@@ -2,6 +2,13 @@ extends PopupDialog
 
 onready var _continue_button := $CenterContainer/VBoxContainer/ContinueButton
 onready var _game_options := $CenterContainer/VBoxContainer/GameOptionsControl
+onready var _exit_button := $CenterContainer/VBoxContainer/ExitButton
+
+func _ready():
+	# Hide exit button on web build
+	if OS.get_name() == "HTML5":
+		_exit_button.visible = false
+
 
 func show():
 	.show()
@@ -18,3 +25,7 @@ func _on_MainMenuButton_pressed():
 	get_tree().paused = false
 	# warning-ignore:return_value_discarded
 	get_tree().change_scene("res://UI/StartMenu.tscn")
+
+
+func _on_ExitButton_pressed():
+	get_tree().quit(0)
