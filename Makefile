@@ -21,7 +21,6 @@ zip: windows linux
 	cp -r build/windows/* build/zip/release/windows
 	cp -r build/linux/* build/zip/release/linux
 	cp LICENSE build/zip
-	echo "Windows and Linux binaries are provided. You can also [play online!](https://doctor-g.github.io/GGJ22)" > build/zip/release/README.md
 	mkdir -p build/zip/press
 	cp raw_assets/press/*png build/zip/press
 	cd build/zip;	zip ggj22.zip -r .
