@@ -27,6 +27,7 @@ func _physics_process(delta):
 			explosion.one_shot = true
 			explosion.global_position = global_position
 			explosion.gravity = direction * PARTICLE_GRAVITY_SCALE
+			explosion.texture = Globals.circle_texture
 		
 		queue_free()
 

@@ -4,6 +4,8 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
+shader_param/left = Vector3( 1, 1, 1 )
+shader_param/right = Vector3( 0, 0, 0 )
 shader_param/barrier_x = 512.0
 
 [node name="ProjectileParticles" type="CPUParticles2D"]
@@ -14,4 +16,3 @@ explosiveness = 0.8
 spread = 180.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 40.0
-scale_amount = 4.0

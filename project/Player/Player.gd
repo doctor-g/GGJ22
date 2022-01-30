@@ -63,6 +63,7 @@ func damage()->void:
 	emit_signal("death")
 	var explosion: CPUParticles2D = preload("res://Player/PlayerExplosion.tscn").instance()
 	explosion.position = position
+	explosion.texture = Globals.circle_texture
 	get_parent().add_child(explosion)
 	explosion.one_shot = true
 	hide()

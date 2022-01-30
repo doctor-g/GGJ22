@@ -16,7 +16,6 @@ spread = 180.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 75.0
 initial_velocity_random = 0.78
-scale_amount = 9.0
 color_ramp = SubResource( 1 )
 script = ExtResource( 1 )
 

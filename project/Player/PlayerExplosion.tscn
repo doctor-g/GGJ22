@@ -4,6 +4,8 @@
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
+shader_param/left = Vector3( 1, 1, 1 )
+shader_param/right = Vector3( 0, 0, 0 )
 shader_param/barrier_x = 512.0
 
 [sub_resource type="Curve" id=1]
@@ -21,4 +23,3 @@ spread = 180.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 65.0
 linear_accel_curve = SubResource( 1 )
-scale_amount = 4.0

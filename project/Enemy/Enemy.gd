@@ -45,6 +45,7 @@ func damage()->void:
 	explosion.global_position = get_global_transform().origin
 	explosion.one_shot = true
 	explosion.sound = KILL_LEFT if _is_on_left else KILL_RIGHT
+	explosion.texture = Globals.circle_texture
 	get_parent().add_child(explosion)
 	
 	queue_free()
