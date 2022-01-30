@@ -1,30 +1,20 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/StartMenu.gd" type="Script" id=1]
 [ext_resource path="res://Shared/theme.tres" type="Theme" id=2]
 [ext_resource path="res://Shared/FredokaOne-Regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://UI/bw_text_shader.gdshader" type="Shader" id=4]
-
-[sub_resource type="Shader" id=4]
-code = "shader_type canvas_item;
-
-uniform float barrier_x = 512.0;
-
-void fragment() {
-	if (FRAGCOORD.x < barrier_x) {
-		COLOR.rgb = vec3(0.0,0.0,0.0);
-	}
-	else {
-		COLOR.rgb = vec3(1.0,1.0,1.0);
-	}
-}"
+[ext_resource path="res://UI/halfscreen_shader.gdshader" type="Shader" id=4]
 
 [sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
+shader = ExtResource( 4 )
+shader_param/left = Vector3( 0, 0, 0 )
+shader_param/right = Vector3( 1, 1, 1 )
 shader_param/barrier_x = 412.0
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 4 )
+shader_param/left = Vector3( 1, 1, 1 )
+shader_param/right = Vector3( 0, 0, 0 )
 shader_param/barrier_x = 412.0
 
 [sub_resource type="DynamicFont" id=3]
@@ -33,6 +23,8 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 4 )
+shader_param/left = Vector3( 1, 1, 1 )
+shader_param/right = Vector3( 0, 0, 0 )
 shader_param/barrier_x = 412.0
 
 [node name="StartMenu" type="Control"]

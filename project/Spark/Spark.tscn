@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Spark/Spark.gd" type="Script" id=1]
-[ext_resource path="res://UI/bw_text_shader.gdshader" type="Shader" id=2]
+[ext_resource path="res://UI/halfscreen_shader.gdshader" type="Shader" id=2]
 [ext_resource path="res://Spark/Halo.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
