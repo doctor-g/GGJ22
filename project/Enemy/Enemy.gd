@@ -2,6 +2,7 @@ extends KinematicBody2D
 export var speed := 100.0
 
 const RING_THICKNESS := 4.0
+const PARTICLE_GRAVITY_SCALE := 100.0
 const SPAWN_LEFT := preload("res://Enemy/spawn_p1.wav")
 const SPAWN_RIGHT := preload("res://Enemy/spawn_p2.wav")
 const KILL_LEFT := preload("res://Enemy/kill_p1.wav")
@@ -46,6 +47,7 @@ func damage()->void:
 	explosion.one_shot = true
 	explosion.sound = KILL_LEFT if _is_on_left else KILL_RIGHT
 	explosion.texture = Globals.circle_texture
+	explosion.gravity = -_direction.rotated(rotation)*PARTICLE_GRAVITY_SCALE
 	get_parent().add_child(explosion)
 	
 	queue_free()
