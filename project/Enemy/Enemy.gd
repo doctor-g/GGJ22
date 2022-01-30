@@ -3,7 +3,7 @@ extends KinematicBody2D
 const RING_THICKNESS := 4.0
 const PARTICLE_GRAVITY_SCALE := 100.0
 const MIN_MOVEMENT_SPEED := 60.0
-const MAX_MOVEMENT_SPEED := 140.0
+const MAX_MOVEMENT_SPEED := 160.0
 const SPAWN_LEFT := preload("res://Enemy/spawn_p1.wav")
 const SPAWN_RIGHT := preload("res://Enemy/spawn_p2.wav")
 const KILL_LEFT := preload("res://Enemy/kill_p1.wav")
