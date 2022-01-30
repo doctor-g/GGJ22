@@ -47,13 +47,20 @@ func _end_game():
 
 
 func _on_Spark_hit(player_index:int, spark:Node2D)->void:
-	call_deferred("_spawn_enemy", spark, player_index==0)
+	var warp: Node2D = load("res://World/EnemyWarp.tscn").instance()
+	add_child(warp)
+	# warning-ignore:return_value_discarded
+	warp.connect("spawn_enemy", self, "_spawn_enemy", [spark.global_position, player_index==0], CONNECT_ONESHOT)
+	warp.global_position = spark.global_position
+	
+	var viewport_width = get_viewport_rect().size.x
+	warp.position.x += (viewport_width/2 if player_index==0 else -viewport_width/2)
 
 
-func _spawn_enemy(spark:Node2D, left:bool)->void:
+func _spawn_enemy(enemy_position:Vector2, left:bool)->void:
 	var enemy = ENEMY.instance()
 	_enemies.add_child(enemy)
-	enemy.global_position = spark.global_position
+	enemy.global_position = enemy_position
 	var viewport_width = get_viewport_rect().size.x
 	enemy.position.x += (viewport_width/2 if left else -viewport_width/2)
 	enemy.target = _player2 if left else _player1

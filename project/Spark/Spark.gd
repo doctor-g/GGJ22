@@ -5,11 +5,17 @@ signal hit(player_index)
 const UNIT_PER_SECOND := 0.05
 const VERTICES := 16
 const ROTATION_SPEED := 0.4
+const MAX_HALO_RADIUS := 50.0
+const MIN_HALO_RADIUS := 18.0
 
 onready var _radius: float = $Area2D/CollisionShape2D.shape.radius
 
 var _half_circle_a: PoolVector2Array
 var _half_circle_b: PoolVector2Array
+var _is_moving := true
+var _halo_collapse_amount := 0.0
+
+onready var _halo := $Area2D/Halo
 
 
 func _ready():
@@ -26,19 +32,35 @@ func _draw():
 
 
 func _process(delta):
-	unit_offset += UNIT_PER_SECOND * delta
+	if _is_moving:
+		unit_offset += UNIT_PER_SECOND * delta
+		
+		rotation += ROTATION_SPEED
 	
-	rotation += ROTATION_SPEED
-	update()
+	else:
+		_halo_collapse_amount += delta
+		_halo.current_halo_radius = lerp(MAX_HALO_RADIUS, MIN_HALO_RADIUS, 1-_halo_collapse_amount*_halo_collapse_amount)
+		_halo.update()
+		
+		if _halo_collapse_amount >= 1.0:
+			_set_is_moving(true)
 
 
 func _on_Area2D_body_entered(body):
-	if body is Projectile:
+	if body is Projectile and _is_moving:
 		emit_signal("hit", body.player_index)
 		
-		var explosion:CPUParticles2D = preload("res://Spark/SparkExplosion.tscn").instance()
-		explosion.position = position
-		get_parent().add_child(explosion)
-		explosion.one_shot = true
+		_set_is_moving(false)
 		
 		body.queue_free()
+
+
+func _set_is_moving(new_value:bool)->void:
+	_is_moving = new_value
+	if new_value:
+		_halo_collapse_amount = 0.0
+	_halo.is_drawing = !new_value
+
+
+func _get_is_moving()->bool:
+	return _is_moving
