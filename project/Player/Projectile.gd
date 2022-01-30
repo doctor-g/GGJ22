@@ -1,7 +1,7 @@
 class_name Projectile
 extends KinematicBody2D
 
-const SPEED := 200.0
+const SPEED := 300.0
 const PARTICLE_GRAVITY_SCALE := 90.0
 
 var direction := Vector2.ZERO
