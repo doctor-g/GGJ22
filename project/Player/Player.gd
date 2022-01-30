@@ -45,48 +45,20 @@ func _ready():
 		points.append(Vector2(0,RADIUS).rotated(float(i)/VERTICES*TAU))
 	_collision_polygon.set_polygon(points)
 	
-	var suffix := "_p1" if player_index==0 else "_p2"
-	_move_left = "move_left" + suffix
-	_move_right = "move_right" + suffix
-	_move_up = "move_up" + suffix
-	_move_down = "move_down" + suffix
-	_aim_left = "aim_left" + suffix
-	_aim_right = "aim_right" + suffix
-	_aim_up = "aim_up" + suffix
-	_aim_down = "aim_down" + suffix
-	_fire = "fire" + suffix
+	_configure_for_player_index()
 	
-	_shoot_sound.stream = SHOOT_P1 if player_index==0 else SHOOT_P2
-	_death_sound.stream = DEATH_P1 if player_index==0 else DEATH_P2
-	
-	_basic_shape.color = Color.white if player_index==0 else Color.black
 	_basic_shape.reticle_radius = RETICLE_RADIUS
 	_basic_shape.distance_to_reticle = DISTANCE_TO_RETICLE
 	_basic_shape.polygon = _collision_polygon.polygon
 
+
 func _physics_process(delta):
 	if not Globals.playing:
 		return
-	
-	var direction := Vector2(
-		Input.get_axis(_move_left, _move_right),
-		Input.get_axis(_move_up, _move_down)
-	)
-	
-	var collision := move_and_collide(direction*delta*speed)
-	if collision != null:
-		damage()
-	
-	if _is_any_aim_pressed():
-		_aim_angle = Vector2(
-			Input.get_axis(_aim_left, _aim_right), 
-			Input.get_axis(_aim_up, _aim_down)
-		).angle()
-		
-		_basic_shape.aim_angle = _aim_angle
-	
-	if Input.is_action_just_pressed(_fire) and _can_shoot:
-		_shoot()
+	else:
+		_process_move_input(delta)
+		_process_aim_input()
+		_process_shoot_input()
 
 
 func damage()->void:
@@ -108,6 +80,51 @@ func _is_any_aim_pressed()->bool:
 		or Input.is_action_pressed(_aim_down) \
 		or Input.is_action_pressed(_aim_left) \
 		or Input.is_action_pressed(_aim_right)
+
+
+# Several fields depend on whether this is player 1 or player 2.
+# This function sets those up.
+func _configure_for_player_index():
+	var suffix := "_p1" if player_index==0 else "_p2"
+	_move_left = "move_left" + suffix
+	_move_right = "move_right" + suffix
+	_move_up = "move_up" + suffix
+	_move_down = "move_down" + suffix
+	_aim_left = "aim_left" + suffix
+	_aim_right = "aim_right" + suffix
+	_aim_up = "aim_up" + suffix
+	_aim_down = "aim_down" + suffix
+	_fire = "fire" + suffix
+	
+	_shoot_sound.stream = SHOOT_P1 if player_index==0 else SHOOT_P2
+	_death_sound.stream = DEATH_P1 if player_index==0 else DEATH_P2
+	
+	_basic_shape.color = Color.white if player_index==0 else Color.black
+
+
+func _process_move_input(delta:float)->void:
+	var direction := Vector2(
+		Input.get_axis(_move_left, _move_right),
+		Input.get_axis(_move_up, _move_down)
+	)
+	var collision := move_and_collide(direction*delta*speed)
+	if collision != null:
+		damage()
+
+
+func _process_aim_input()->void:
+	if _is_any_aim_pressed():
+		_aim_angle = Vector2(
+			Input.get_axis(_aim_left, _aim_right), 
+			Input.get_axis(_aim_up, _aim_down)
+		).angle()
+		
+		_basic_shape.aim_angle = _aim_angle
+
+
+func _process_shoot_input():
+	if Input.is_action_just_pressed(_fire) and _can_shoot:
+		_shoot()
 
 
 func _shoot()->void:
