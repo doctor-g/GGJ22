@@ -15,4 +15,24 @@ margin_right = 1024.0
 margin_bottom = 40.0
 text = "Fullscreen"
 
+[node name="MuteMusicToggle" type="CheckButton" parent="."]
+margin_top = 44.0
+margin_right = 1024.0
+margin_bottom = 84.0
+text = "Mute Music"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MuteSoundToggle" type="CheckButton" parent="."]
+margin_top = 88.0
+margin_right = 1024.0
+margin_bottom = 128.0
+text = "Mute SFX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="toggled" from="FullscreenToggle" to="." method="_on_FullscreenToggle_toggled"]
+[connection signal="toggled" from="MuteMusicToggle" to="." method="_on_MuteMusicToggle_toggled"]
+[connection signal="toggled" from="MuteSoundToggle" to="." method="_on_MuteSoundToggle_toggled"]
