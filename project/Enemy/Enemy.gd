@@ -1,18 +1,21 @@
 extends KinematicBody2D
-export var speed := 100.0
 
 const RING_THICKNESS := 4.0
 const PARTICLE_GRAVITY_SCALE := 100.0
+const MIN_MOVEMENT_SPEED := 60.0
+const MAX_MOVEMENT_SPEED := 140.0
 const SPAWN_LEFT := preload("res://Enemy/spawn_p1.wav")
 const SPAWN_RIGHT := preload("res://Enemy/spawn_p2.wav")
 const KILL_LEFT := preload("res://Enemy/kill_p1.wav")
 const KILL_RIGHT := preload("res://Enemy/kill_p2.wav")
+
 
 var target: KinematicBody2D setget _set_target
 
 var _direction := Vector2.RIGHT
 var _ring_color: Color
 var _is_on_left := false
+var _speed_scale_amount := 0.0
 
 onready var _radius: float = $CollisionShape2D.shape.radius-2 # half of the line width
 onready var _spawn_sound := $SpawnSound
@@ -24,6 +27,7 @@ func _physics_process(delta: float)->void:
 	var angle_to_target = get_angle_to(target.get_global_transform().origin)
 	rotation += angle_to_target
 	
+	var speed := _get_speed(delta)
 	var collision := move_and_collide((_direction * speed * delta).rotated(rotation))
 	
 	if collision != null:
@@ -51,6 +55,12 @@ func damage()->void:
 	get_parent().add_child(explosion)
 	
 	queue_free()
+
+
+func _get_speed(delta:float)->float:
+	if _speed_scale_amount < 1.0:
+		_speed_scale_amount += delta
+	return lerp(MAX_MOVEMENT_SPEED, MIN_MOVEMENT_SPEED, 1-pow(_speed_scale_amount, 2))
 
 
 func _set_target(new_target: KinematicBody2D)->void:
