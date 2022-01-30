@@ -2,6 +2,7 @@ class_name Projectile
 extends KinematicBody2D
 
 const SPEED := 200.0
+const PARTICLE_GRAVITY_SCALE := 90.0
 
 var direction := Vector2.ZERO
 var player_index := -1 setget _set_player_index
@@ -25,6 +26,7 @@ func _physics_process(delta):
 			get_parent().add_child(explosion)
 			explosion.one_shot = true
 			explosion.global_position = global_position
+			explosion.gravity = direction * PARTICLE_GRAVITY_SCALE
 		
 		queue_free()
 
