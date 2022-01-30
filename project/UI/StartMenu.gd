@@ -16,9 +16,9 @@ func _ready():
 
 func _process(_delta):
 	var seconds := OS.get_ticks_msec() / 1000.0
-	var x := range_lerp(cos(seconds), -1, 1, 412, 612)
+	var x := range_lerp(cos(seconds), -1, 1, -100, 100)
 	for control in _shadery_things:
-		control.material.set_shader_param("barrier_x", x)
+		control.material.set_shader_param("x_offset", x)
 
 
 func _on_PlayButton_pressed():
