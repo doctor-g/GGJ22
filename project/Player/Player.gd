@@ -15,7 +15,6 @@ export(int,1) var player_index := 0
 export var cooldown_time := 0.5
 
 var speed := 150
-var polygon setget ,_get_polygon
 
 var _aim_angle : float
 
@@ -32,24 +31,22 @@ var _color : Color
 
 var _can_shoot := true
 
-onready var _collision_polygon := $CollisionPolygon2D
+onready var _collision_shape := $CollisionShape2D
 onready var _cooldown_timer := $CooldownTimer
 onready var _basic_shape := $BasicShape
 onready var _shoot_sound := $ShootSound
 onready var _death_sound := $DeathSound
 
 func _ready():
-	var points : PoolVector2Array = []
-	points.resize(VERTICES)
-	for i in VERTICES+1:
-		points.append(Vector2(0,RADIUS).rotated(float(i)/VERTICES*TAU))
-	_collision_polygon.set_polygon(points)
-	
 	_configure_for_player_index()
 	
 	_basic_shape.reticle_radius = RETICLE_RADIUS
 	_basic_shape.distance_to_reticle = DISTANCE_TO_RETICLE
-	_basic_shape.polygon = _collision_polygon.polygon
+	_basic_shape.radius = _collision_shape.shape.radius
+	
+	if player_index == 1:
+		_aim_angle += PI
+		_basic_shape.aim_angle = _aim_angle
 
 
 func _physics_process(delta):
@@ -138,11 +135,6 @@ func _shoot()->void:
 	get_parent().add_child(projectile)
 	projectile.global_position = get_global_transform().origin + Vector2(DISTANCE_TO_RETICLE,0).rotated(_aim_angle)
 	projectile.direction = Vector2(cos(_aim_angle), sin(_aim_angle))
-
-
-# A utility to allow the world to access a copy of this node's outline
-func _get_polygon()->PoolVector2Array:
-	return _collision_polygon.polygon
 
 
 func _on_CooldownTimer_timeout()->void:

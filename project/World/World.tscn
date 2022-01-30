@@ -35,7 +35,6 @@ collision_layer = 32
 collision_layer = 32
 
 [node name="Player1" parent="LeftZone" instance=ExtResource( 2 )]
-position = Vector2( -1, 6 )
 collision_mask = 0
 
 [node name="RightZone" parent="." instance=ExtResource( 3 )]
@@ -61,7 +60,6 @@ collision_mask = 2
 color = Color( 1, 1, 1, 1 )
 
 [node name="Player2" parent="RightZone" instance=ExtResource( 2 )]
-position = Vector2( 11, 7 )
 collision_layer = 2
 collision_mask = 0
 player_index = 1
