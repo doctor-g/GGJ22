@@ -10,15 +10,25 @@ func _ready():
 		_exit_button.visible = false
 
 
+func _input(event):
+	if visible and event.is_action_pressed("pause"):
+		accept_event()
+		_dismiss()
+
+
 func show():
 	.show()
 	_game_options.update_toggle_state()
 	_continue_button.grab_focus()
 
 
-func _on_ContinueButton_pressed():
+func _dismiss():
 	get_tree().paused = false
 	hide()
+
+
+func _on_ContinueButton_pressed():
+	_dismiss()
 
 
 func _on_MainMenuButton_pressed():
