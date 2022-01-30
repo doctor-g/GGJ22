@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://UI/StartMenu.gd" type="Script" id=1]
 [ext_resource path="res://Shared/theme.tres" type="Theme" id=2]
 [ext_resource path="res://Shared/FredokaOne-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://UI/halfscreen_shader.gdshader" type="Shader" id=4]
+[ext_resource path="res://UI/OptionsDialog.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 4 )
@@ -71,27 +72,44 @@ align = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -46.0
-margin_top = 6.0
-margin_right = 46.0
-margin_bottom = 70.0
+anchor_bottom = 1.0
+margin_left = -72.0
+margin_top = -287.0
+margin_right = 72.0
+margin_bottom = -87.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
-margin_right = 92.0
+margin_right = 144.0
 margin_bottom = 64.0
 text = "Play"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
 margin_top = 68.0
-margin_right = 92.0
+margin_right = 144.0
 margin_bottom = 132.0
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 136.0
+margin_right = 144.0
+margin_bottom = 200.0
 text = "Quit"
 
+[node name="OptionsDialog" parent="." instance=ExtResource( 5 )]
+anchor_left = 0.2
+anchor_top = 0.1
+anchor_right = 0.8
+anchor_bottom = 0.9
+
 [connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="hide" from="OptionsDialog" to="." method="_on_OptionsDialog_hide"]
