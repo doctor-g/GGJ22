@@ -57,13 +57,14 @@ func _on_Spark_hit(player_index:int, spark:Node2D)->void:
 	warp.position.x += (viewport_width/2 if player_index==0 else -viewport_width/2)
 
 
-func _spawn_enemy(enemy_position:Vector2, left:bool)->void:
+func _spawn_enemy(enemy_position:Vector2, is_left:bool)->void:
 	var enemy = ENEMY.instance()
 	_enemies.add_child(enemy)
 	enemy.global_position = enemy_position
 	var viewport_width = get_viewport_rect().size.x
-	enemy.position.x += (viewport_width/2 if left else -viewport_width/2)
-	enemy.target = _player2 if left else _player1
+	enemy.position.x += (viewport_width/2 if is_left else -viewport_width/2)
+	enemy.target = _player2 if is_left else _player1
+	enemy.play_spawn_sound(not is_left)
 
 
 func _on_GameEndTimer_timeout()->void:

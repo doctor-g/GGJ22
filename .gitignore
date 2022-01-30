@@ -3,6 +3,7 @@ build
 .directory
 project/.import
 project/logs
+tmp
 
 # LMMS Backup files
 *mmpz.bak

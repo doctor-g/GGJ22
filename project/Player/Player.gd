@@ -6,6 +6,10 @@ const VERTICES := 32
 const RADIUS := 20
 const DISTANCE_TO_RETICLE := 30
 const RETICLE_RADIUS := 5
+const SHOOT_P1 := preload("res://Player/shoot_p1.wav")
+const SHOOT_P2 := preload("res://Player/shoot_p2.wav")
+const DEATH_P1 := preload("res://Player/death_p1.wav")
+const DEATH_P2 := preload("res://Player/death_p2.wav")
 
 export(int,1) var player_index := 0
 export var cooldown_time := 0.5
@@ -31,6 +35,8 @@ var _can_shoot := true
 onready var _collision_polygon := $CollisionPolygon2D
 onready var _cooldown_timer := $CooldownTimer
 onready var _basic_shape := $BasicShape
+onready var _shoot_sound := $ShootSound
+onready var _death_sound := $DeathSound
 
 func _ready():
 	var points : PoolVector2Array = []
@@ -49,6 +55,9 @@ func _ready():
 	_aim_up = "aim_up" + suffix
 	_aim_down = "aim_down" + suffix
 	_fire = "fire" + suffix
+	
+	_shoot_sound.stream = SHOOT_P1 if player_index==0 else SHOOT_P2
+	_death_sound.stream = DEATH_P1 if player_index==0 else DEATH_P2
 	
 	_basic_shape.color = Color.white if player_index==0 else Color.black
 	_basic_shape.reticle_radius = RETICLE_RADIUS
@@ -81,6 +90,7 @@ func _physics_process(delta):
 
 
 func damage()->void:
+	_death_sound.play()
 	emit_signal("death")
 	var explosion: CPUParticles2D = preload("res://Player/PlayerExplosion.tscn").instance()
 	explosion.position = position
@@ -101,6 +111,8 @@ func _is_any_aim_pressed()->bool:
 
 
 func _shoot()->void:
+	_shoot_sound.play()
+	
 	_can_shoot = false
 	_cooldown_timer.start(cooldown_time)
 	

@@ -7,6 +7,8 @@ const VERTICES := 16
 const ROTATION_SPEED := 0.4
 const MAX_HALO_RADIUS := 50.0
 const MIN_HALO_RADIUS := 18.0
+const SOUND_P1 := preload("res://Spark/spark_p1.wav")
+const SOUND_P2 := preload("res://Spark/spark_p2.wav")
 
 onready var _radius: float = $Area2D/CollisionShape2D.shape.radius
 
@@ -16,7 +18,7 @@ var _is_moving := true
 var _halo_collapse_amount := 0.0
 
 onready var _halo := $Area2D/Halo
-
+onready var _hit_sound := $HitSound
 
 func _ready():
 	for i in VERTICES+1:
@@ -48,6 +50,9 @@ func _process(delta):
 
 func _on_Area2D_body_entered(body):
 	if body is Projectile and _is_moving:
+		_hit_sound.stream = SOUND_P1 if body.player_index==0 else SOUND_P2
+		_hit_sound.play()
+		
 		emit_signal("hit", body.player_index)
 		
 		_set_is_moving(false)

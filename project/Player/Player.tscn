@@ -58,4 +58,10 @@ __meta__ = {
 [node name="BasicShape" type="Node2D" parent="."]
 script = ExtResource( 2 )
 
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

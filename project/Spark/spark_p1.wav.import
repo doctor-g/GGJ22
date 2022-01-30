@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/spark_p1.wav-6ae77effbccfe8818b631d76b1a77e43.sample"
+
+[deps]
+
+source_file="res://Spark/spark_p1.wav"
+dest_files=[ "res://.import/spark_p1.wav-6ae77effbccfe8818b631d76b1a77e43.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
