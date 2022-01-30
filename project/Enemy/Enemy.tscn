@@ -13,3 +13,4 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="SpawnSound" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
